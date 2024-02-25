@@ -6,6 +6,8 @@ from datetime import datetime
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+ec2 = boto3.client('ec2')
+
 def lambda_handler(event, context):
     
     logger.info("Starting lambda...")
@@ -13,8 +15,6 @@ def lambda_handler(event, context):
     current_date = datetime.now().strftime("%Y-%m-%d")
 
     try:
-        ec2 = boto3.client('ec2')
-
         response = ec2.create_snapshot(
             VolumeId = 'vol-0f1596b80a26dab2d',
             Description='My EC2 Snapshot',
