@@ -59,14 +59,25 @@ def process_record(record):
     ]
 
     # execute sql statement and log the response
-    response = execute_statement(sql_statement, sql_parameters)
+    response = execute_sql(sql_statement, sql_parameters)
     logger.info(f"SQL execution response: {response}")
 
 # function to execute SQL statement
-#def execute_sql(sql, params):
-    # use RDS Data API to execute the SQL statement
-
-    # if an error occurs while connecting to the database, log an error message
+def execute_sql(sql, params):
+    try:
+        # use RDS Data API to execute the SQL statement
+        response = rds_client.execute_statement(
+            secretArn=secret_store_arn,
+            database=database_name,
+            resourceArn=db_cluster_arn,
+            sql=sql,
+            parameters=params
+        )
+        return response
+    except Exception as e:
+        # if an error occurs while connecting to the database, log an error message
+        logger.error(f"Error occurred while executing SQL: {e}")
+        return None
 
 
 # lambda handler
