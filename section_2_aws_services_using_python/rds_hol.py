@@ -33,6 +33,7 @@ except rds.exceptions.DBClusterNotFoundFault:
         EnableHttpEndpoint=True,
         MasterUsername=username,
         MasterUserPassword=password,
+        DatabaseName='rds_hol_db',
         ScalingConfiguration={
             'MinCapacity': 1, # minimum ACU
             'MaxCapacity': 2, # maximum ACU
@@ -48,19 +49,19 @@ rds.get_waiter('db_cluster_available').wait(DBClusterIdentifier=db_cluster_ident
 print("The DB cluster is available.")
 
 # Modify the DB cluster. Update the scaling configuration.
-print("Modifying the DB cluster...")
-rds.modify_db_cluster(
-    DBClusterIdentifier=db_cluster_identifier,
-    ScalingConfiguration={
-        'MinCapacity': 1,
-        'MaxCapacity': 4,
-        'AutoPause': True,
-        'SecondsUntilAutoPause': 600
-    }
-)
-print("The DB cluster has been modified.")
+# print("Modifying the DB cluster...")
+# rds.modify_db_cluster(
+#     DBClusterIdentifier=db_cluster_identifier,
+#     ScalingConfiguration={
+#         'MinCapacity': 1,
+#         'MaxCapacity': 4,
+#         'AutoPause': True,
+#         'SecondsUntilAutoPause': 600
+#     }
+# )
+# print("The DB cluster has been modified.")
 
 # Delete the DB cluster
-print("Deleting the DB cluster...")
-rds.delete_db_cluster(DBClusterIdentifier=db_cluster_identifier, SkipFinalSnapshot=True)
-print("The DB cluster has been deleted.")
+#print("Deleting the DB cluster...")
+#rds.delete_db_cluster(DBClusterIdentifier=db_cluster_identifier, SkipFinalSnapshot=True)
+#print("The DB cluster has been deleted.")
