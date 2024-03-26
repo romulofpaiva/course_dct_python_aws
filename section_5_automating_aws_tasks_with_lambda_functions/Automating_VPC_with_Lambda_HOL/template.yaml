@@ -1,0 +1,8 @@
+Resources:
+  ManageEIP:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.9
+      CodeUri: .
+      Timeout: 30
